@@ -5,6 +5,10 @@ import {FcGoogle} from "react-icons/fc"
 import { motion } from "motion/react"
 import { signInWithPopup } from 'firebase/auth';
 import {auth, provider } from '../firebase.js';
+import axios from "axios"
+import { serverURL } from '../App.jsx';
+
+
 
 const Auth = () => {
 
@@ -12,6 +16,14 @@ const Auth = () => {
         try{
             const response = await signInWithPopup(auth, provider);
             console.log(response);
+            let user = response.user ;
+            let name = user.displayName, email = user.email ;
+            const result = await axios.post(serverURL + "/api/auth/google",
+                {name, email},
+                {withCredentials:true}
+            )
+            console.log(result.data);
+
         }catch(error){
             console.log(error);
         }
