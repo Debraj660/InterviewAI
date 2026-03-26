@@ -3,10 +3,13 @@ import { Routes, Route } from "react-router-dom"
 import Home from './pages/Home'
 import Auth from './pages/Auth'
 import axios from "axios"
+import { useDispatch } from 'react-redux'
+import { setUserData } from './redux/userSlice'
 
 export const serverURL = "http://localhost:8000" ;
 
 const App = () => {
+  const dispatch = useDispatch();
   useEffect(()=>{
 
     const getUser = async()=>{
@@ -14,16 +17,18 @@ const App = () => {
 
         const result = await axios.get(serverURL + "/api/user/curr-user", 
           {withCredentials:true}
+          
         );
+        dispatch(setUserData(result.data));
         console.log("working");
-
         console.log(result.data);
       }catch(error){
+        dispatch(setUserData(null));
         console.log(error);
       }
     }
     getUser();
-  }, []);
+  }, [dispatch]);
 
   return (
     <Routes>
