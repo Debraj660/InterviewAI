@@ -7,6 +7,7 @@ import { FaUserAstronaut } from "react-icons/fa";
 import {useNavigate} from "react-router-dom"
 import { setUserData } from '../redux/userSlice';
 import axios from "axios"
+import AuthModel from './AuthModel';
 
 const serverURL = "http://localhost:8000" ;
 
@@ -14,6 +15,7 @@ const Navbar = () => {
     const {userData} = useSelector((state)=> state.user) ;
     const [showCreditPopup, setShowCreditPopup] = useState(false);
     const [showUserPopup, setShowUserPopup] = useState(false);
+    const [showAuth, setShowAuth] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleLogout = async()=>{
@@ -46,8 +48,13 @@ const Navbar = () => {
             <div className='flex items-center gap-6 relative'>
                 <div className="realtive">
                     <button onClick={()=> {
+                        if(!userData){
+                            setShowAuth(true);
+                            return;
+                        }
                         setShowCreditPopup(!showCreditPopup);
                         setShowUserPopup(false);
+
                     }}
                     className='flex items-center gap-2 bg-gray-100
                     px-4 py-4 rounded-full text-md hover:bg-gray-200 transition'>
@@ -72,6 +79,10 @@ const Navbar = () => {
                 <div className='relative' >
                     <button
                     onClick={()=> {
+                        if(!userData){
+                            setShowAuth(true);
+                            return;
+                        }
                         setShowUserPopup(!showUserPopup);
                         setShowCreditPopup(false);
                     }}
@@ -100,6 +111,7 @@ const Navbar = () => {
 
             </div>
         </motion.div>
+            {showAuth && <AuthModel onClose={()=> setShowAuth(false)}/>}
         
     </div>
   )
