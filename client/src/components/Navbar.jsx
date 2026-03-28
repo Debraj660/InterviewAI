@@ -18,6 +18,7 @@ const Navbar = () => {
     const [showAuth, setShowAuth] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const handleLogout = async()=>{
         try{
             await axios.get(serverURL + '/api/auth/logout', 
@@ -37,7 +38,7 @@ const Navbar = () => {
         <motion.div 
         initial={{opacity:0, y: -100}}
         animate={{opacity:1, y:0}}
-        transition={{duration:0.80}}
+        transition={{duration:0.60}}
         className="w-full max-w-6xl bg-red rounded-3xl  shadow-sm border border-gray-200 px-8 py-4 flex justify-between items-center relative ">
             <div className="flex items-center gap-3 cursor-pointer">
                 <div className="bg-black text-white p-2 rounded-lg">
