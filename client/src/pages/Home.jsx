@@ -23,6 +23,7 @@ import MMImg from "../assets/MM.png"
 import pdfImg from "../assets/pdf.png"
 import resumeImg from "../assets/resume.png"
 import techImg from "../assets/tech.png"
+import Footer from '../components/Footer'
 
 
 const Home = () => {
@@ -133,8 +134,8 @@ const Home = () => {
                 shadow-md hover:shadow-2xl
                 transition-all duration-300
                 ${index == 0 ? "rotate-[-4deg]" : ""}
-                ${index == 1 ? "rotate-[3deg] md:-mt-6 shadow-xl" : ""}
-                ${index == 2 ? "rotate-[-3deg]" : ""}`}>
+                ${index == 1 ? "rotate-3 md:-mt-6 shadow-xl" : ""}
+                ${index == 2 ? "-rotate-3" : ""}`}>
                   <div className="absolute -top-8 left-1/2 -translate-x-1/2
                   bg-white border-2 border-green-500 w-16 h-16 rounded-2xl flex
                   items-center justify-center shadow-lg">
@@ -283,6 +284,7 @@ const Home = () => {
       </div>
       </div>
       {showAuth && <AuthModel onClose={()=> setShowAuth(false)}/>}
+        <Footer/>
     </div>
   )
 }
