@@ -5,6 +5,7 @@ import authRouter from "./routes/authRouter.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRouter.js";
+import interviewRouter from "./routes/interviewRouter.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
+app.use("/api/interview", interviewRouter);
 
 app.get("/", (req, res)=>{
     return res.json({message : "Server Started"});
