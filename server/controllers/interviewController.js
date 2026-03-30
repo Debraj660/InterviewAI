@@ -51,7 +51,7 @@ export const analyzeResume = async (req, res) => {
         const cleanedRes = aiRes.replace(/```json\s*/gi, "").replace(/```/g, "").trim();
         const parsedRes = JSON.parse(cleanedRes);
 
-        // fs.unlinkSync(filePath); // delete the file
+        fs.unlinkSync(filePath); // delete the file
 
         res.json({
             role: parsedRes.role,
