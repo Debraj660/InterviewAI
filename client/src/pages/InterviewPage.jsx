@@ -14,7 +14,7 @@ const InterviewPage = () => {
 
       {step === 3 && (<Step2Interview interviewData={interviewData}
       onFinish={(report) => {setInterviewData(report);
-        setStep(2);
+        setStep(3);
       }}
       />)}
 
