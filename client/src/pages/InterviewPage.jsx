@@ -12,7 +12,7 @@ const InterviewPage = () => {
         setStep(2);
       }}/>)}
 
-      {step === 3 && (<Step2Interview interviewData={interviewData}
+      {step === 2 && (<Step2Interview interviewData={interviewData}
       onFinish={(report) => {setInterviewData(report);
         setStep(3);
       }}

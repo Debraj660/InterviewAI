@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { calcGeneratorDuration, motion } from "motion/react"
+import { motion } from "motion/react"
 import { 
     FaUserTie,
     FaFileUpload,
