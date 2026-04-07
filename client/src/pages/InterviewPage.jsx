@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Step1Setup from '../components/Step1Setup.jsx';
-import Step2Interview from '../components/step2Interview.jsx';
+import Step2Interview from '../components/Step2Interview.jsx';
+import Step3Report from '../components/Step3Report.jsx';
 
 const InterviewPage = () => {
   const [step, setStep] = useState(1) ;
@@ -18,7 +19,7 @@ const InterviewPage = () => {
       }}
       />)}
 
-      {step === 3 && (<step3Report report={interviewData} />)}
+      {step === 3 && (<Step3Report report={interviewData} />)}
     </div>
   )
 }
