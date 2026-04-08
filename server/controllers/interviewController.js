@@ -359,3 +359,72 @@ export const finishInterview = async (req, res) => {
     });
   }
 };
+
+
+export const getMyInterview = async(req, res)=>{
+  try{  
+    const interviewData = await Interview.find({userId: req.userId})
+    .sort({createdAt: -1})
+    .select("role experience mode final score status createdAt");
+    return res.status(200).json(interviewData);
+
+  }catch(error){
+    return res.status(500).json({message : `Failed to find currentUser interview ${error}`});
+  }
+};
+
+export const getInterviewReport = async(req, res)=>{
+  try{
+    const interviewData = await Interview.findById(req.params.id);
+
+    if(!interviewData) return res.status(404).json({message : "Interview not found"});
+
+    const totalQuestions = interviewData.questions.length;
+
+    if (totalQuestions === 0) {
+      return res.status(400).json({ message: "No questions found in interview" });
+    }
+
+    let totalScore = 0;
+    let totalConfidence = 0;
+    let totalCommunication = 0;
+    let totalCorrectness = 0;
+
+    interviewData.questions.forEach((q) => {
+      totalScore += q.score || 0;
+      totalConfidence += q.confidence || 0;
+      totalCommunication += q.communication || 0;
+      totalCorrectness += q.correctness || 0;
+    });
+
+    const avgScore = totalScore / totalQuestions;
+    const avgConfidence = totalConfidence / totalQuestions;
+    const avgCommunication = totalCommunication / totalQuestions;
+    const avgCorrectness = totalCorrectness / totalQuestions;
+
+    interviewData.finalScore = Number(avgScore.toFixed(1));
+    interviewData.status = "completed";
+
+    await interviewData.save();
+
+    return res.status(200).json({
+      finalScore: interviewData.finalScore,
+      confidence: Number(avgConfidence.toFixed(1)),
+      communication: Number(avgCommunication.toFixed(1)),
+      correctness: Number(avgCorrectness.toFixed(1)),
+      questionwiseScore: interviewData.questions.map((q) => ({
+        question: q.question,
+        score: q.score || 0,
+        feedback: q.feedback || "",
+        confidence: q.confidence || 0,
+        communication: q.communication || 0,
+        correctness: q.correctness || 0,
+      })),
+    });
+
+
+  }catch(error){
+    return res.status(500).json({message : `Failed to find interview Report ${error}`});
+
+  }
+};
